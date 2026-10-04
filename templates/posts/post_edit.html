@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Modifica descrizione{% endblock %}
+{% block content %}
+<h1 class="text-center mb-4">Modifica descrizione</h1>
+<div class="col-lg-6 mx-auto border border-dark rounded shadow p-4">
+    <img src="{{ object.image.url }}" class="img-fluid rounded mb-3" alt="">
+    <form method="post">
+        {% csrf_token %}
+        {% include "partials/_form_fields.html" %}
+        <button type="submit" class="btn btn-primary">Salva</button>
+        <a href="{% url 'posts:manage' %}" class="btn btn-light">Annulla</a>
+    </form>
+</div>
+{% endblock %}

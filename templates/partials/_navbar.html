@@ -1,0 +1,40 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'core:home' %}">
+            <img src="{% static 'img/logo.png' %}" alt="" width="48" height="48">
+            InstaPy
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Apri il menu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'posts:feed' %}">Attività</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'posts:create' %}">Carica post</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'accounts:search' %}">Cerca</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'posts:discover' %}">Scopri</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'accounts:me' %}">Profilo</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Impostazioni</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'accounts:settings' %}">Modifica profilo</a></li>
+                        <li><a class="dropdown-item" href="{% url 'posts:manage' %}">Modifica post</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <form method="post" action="{% url 'accounts:logout' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="dropdown-item">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+                {% else %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'accounts:signup' %}">Registrati</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}">Accedi</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

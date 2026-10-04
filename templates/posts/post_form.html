@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Carica post{% endblock %}
+{% block extra_head %}
+<link href="https://unpkg.com/cropperjs@1.5.12/dist/cropper.min.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<h1 class="text-center mb-4">Pubblica un post</h1>
+<div class="col-lg-6 mx-auto border border-dark rounded shadow p-4">
+    <form method="post" enctype="multipart/form-data" class="js-cropper-form">
+        {% csrf_token %}
+        {% include "partials/_form_fields.html" %}
+        <div class="mx-auto mb-3" style="max-width: 360px;"><img class="img-fluid js-cropper-image" alt="" hidden></div>
+        <p class="form-text">La foto viene ritagliata in formato quadrato prima dell'invio.</p>
+        <button type="submit" class="btn btn-primary">Posta</button>
+    </form>
+</div>
+{% endblock %}
+{% block extra_js %}
+<script src="https://unpkg.com/cropperjs@1.5.12/dist/cropper.min.js"></script>
+{% load static %}<script src="{% static 'js/cropper-upload.js' %}"></script>
+{% endblock %}

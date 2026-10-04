@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Accedi{% endblock %}
+{% block content %}
+<h1 class="text-center mb-4">Login</h1>
+<div class="col-lg-5 col-md-8 mx-auto border border-dark rounded shadow p-4">
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        {% include "partials/_form_fields.html" %}
+        <div class="text-center"><button class="btn btn-primary" type="submit">Accedi!</button></div>
+    </form>
+</div>
+<p class="text-center mt-3">Non hai un account? <a href="{% url 'accounts:signup' %}">Registrati</a></p>
+{% endblock %}

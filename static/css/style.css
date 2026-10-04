@@ -1,0 +1,25 @@
+.btn-like {
+    background: transparent;
+    border: 0;
+    padding: 0 .5rem 0 0;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.btn-like i {
+    color: #000;
+    transition: color .3s ease;
+}
+
+.btn-like i.liked {
+    color: #f00;
+}
+
+.comment-list {
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.post-wrapper {
+    max-width: 32rem;
+}

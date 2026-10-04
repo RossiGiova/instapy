@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Benvenuto{% endblock %}
+{% block content %}
+<h1 class="text-center my-5">Benvenuti in InstaPy <img src="{% static 'img/logo.png' %}" alt="" width="60"></h1>
+<h2 class="fw-normal text-center mb-5">Scopri subito cosa ha da offrirti il nostro sito!</h2>
+<hr class="my-5">
+
+<div class="row align-items-center">
+    <div class="col-md-7">
+        <h2 class="fw-normal">Sperimenta la gioia di condividere momenti speciali <span class="text-body-secondary">con una vasta community di appassionati di fotografia</span></h2>
+        <p class="lead">Trova ispirazione e scopri nuovi talenti attraverso una piattaforma dedicata alla condivisione di immagini.</p>
+    </div>
+    <div class="col-md-5 text-center">
+        {% if hero_post %}<img src="{{ hero_post.image.url }}" alt="" class="rounded shadow-lg img-fluid">{% endif %}
+    </div>
+</div>
+
+<hr class="my-5">
+<div class="row align-items-center">
+    <div class="col-md-5 mb-4">
+        {% if featured_post %}<div class="mx-auto" style="max-width: 32rem;">{% include "posts/_post_card.html" with post=featured_post %}</div>{% endif %}
+    </div>
+    <div class="col-md-7">
+        <h2 class="fw-normal">Condividi la tua storia attraverso immagini mozzafiato. <span class="text-body-secondary">Lascia che il nostro sito sia il tuo palcoscenico virtuale.</span></h2>
+        <p class="lead mt-4">Segui i tuoi amici, metti like, commenta e scopri nuove prospettive provenienti da utenti di ogni angolo del mondo.</p>
+    </div>
+</div>
+
+{% if gallery %}
+<hr class="my-5">
+<h2 class="fw-normal text-center mb-4">Esplora la vita attraverso la varietà visiva e diventa il protagonista del tuo racconto!</h2>
+<div class="row row-cols-1 row-cols-md-3">
+    {% for post in gallery %}
+    <div class="col mb-4"><div class="ratio ratio-1x1"><img src="{{ post.image.url }}" alt="" class="rounded border shadow-lg img-fluid object-fit-cover"></div></div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<hr class="my-5">
+<div class="text-center">
+    <h2 class="fw-normal mb-4">Iscriviti ora e vivi l'esperienza di condivisione più coinvolgente che tu abbia mai provato.</h2>
+    <a href="{% url 'accounts:signup' %}" class="btn btn-outline-dark btn-lg me-3">Registrati</a>
+    <a href="{% url 'accounts:login' %}" class="btn btn-outline-dark btn-lg">Accedi</a>
+</div>
+{% endblock %}

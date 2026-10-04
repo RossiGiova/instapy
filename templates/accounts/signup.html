@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Registrazione{% endblock %}
+{% block content %}
+<h1 class="text-center mb-4">Registrazione</h1>
+<div class="col-lg-6 col-md-9 mx-auto border border-dark rounded shadow p-4">
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% include "partials/_form_fields.html" %}
+        <div class="text-center"><button class="btn btn-primary" type="submit">Registrati!</button></div>
+    </form>
+</div>
+<p class="text-center mt-3">Hai già un account? <a href="{% url 'accounts:login' %}">Accedi</a></p>
+{% endblock %}

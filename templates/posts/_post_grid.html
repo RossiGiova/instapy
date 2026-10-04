@@ -1,0 +1,24 @@
+{# Thumbnails that open the full post (card) in a Bootstrap modal. #}
+<div class="row row-cols-1 row-cols-md-3">
+    {% for post in posts %}
+    <div class="col mb-4">
+        <div class="ratio ratio-1x1">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#modal{{ post.pk }}">
+                <img src="{{ post.image.url }}" class="rounded border shadow-lg img-fluid object-fit-cover" alt="{{ post.description|default:'Foto' }}">
+            </a>
+        </div>
+    </div>
+    <div class="modal fade" id="modal{{ post.pk }}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content border-0 bg-transparent">
+                <div class="modal-body p-0">{% include "posts/_post_card.html" %}</div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="text-center mx-auto">
+        <i class="bi bi-camera display-1"></i>
+        <h1>Nessuna foto</h1>
+    </div>
+    {% endfor %}
+</div>

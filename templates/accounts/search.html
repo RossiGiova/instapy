@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Cerca{% endblock %}
+{% block content %}
+<h1 class="text-center mb-4">Trova un profilo</h1>
+<form method="get" class="col-lg-6 col-sm-8 mx-auto mb-4">
+    <div class="input-group">
+        <input type="search" class="form-control" placeholder="Cerca per nickname" name="q" value="{{ query }}" aria-label="Cerca">
+        <button class="btn btn-outline-secondary" type="submit" aria-label="Cerca"><i class="bi bi-search"></i></button>
+    </div>
+</form>
+<div class="col-lg-4 col-md-8 mx-auto">
+    {% for result in results %}
+    <a href="{% url 'accounts:profile' result.username %}" class="d-flex align-items-center mb-3 rounded p-2 border shadow-sm text-dark text-decoration-none">
+        <img src="{{ result.avatar_url }}" alt="" width="50" height="50" class="rounded-circle object-fit-cover me-3">
+        <span>{{ result.username }} {% include "partials/_verified.html" with user_obj=result %}</span>
+        <small class="ms-auto text-body-secondary">{{ result.num_followers }} follower</small>
+    </a>
+    {% empty %}
+        {% if query %}
+        <p class="text-center my-5 fs-4"><i class="bi bi-person-x"></i><br>Nessun profilo trovato</p>
+        {% endif %}
+    {% endfor %}
+</div>
+{% include "partials/_pagination.html" %}
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Modifica post{% endblock %}
+{% block content %}
+<h1 class="text-center mb-4">Modifica i tuoi post</h1>
+{% for post in posts %}
+<hr class="my-3">
+<div class="row">
+    <div class="col-md-4 mb-3">
+        <div class="ratio ratio-1x1">
+            <img src="{{ post.image.url }}" class="rounded border shadow-lg img-fluid object-fit-cover" alt="{{ post.description|default:'Foto' }}">
+        </div>
+    </div>
+    <div class="col-md-8">
+        <p class="text-body-secondary mb-1">{{ post.created_at|date:"d/m/Y H:i" }}</p>
+        <p>{{ post.description|default:"Nessuna descrizione" }}</p>
+        <a class="btn btn-primary btn-sm" href="{% url 'posts:edit' post.pk %}">Modifica descrizione</a>
+        <a class="btn btn-danger btn-sm" href="{% url 'posts:delete' post.pk %}">Elimina post</a>
+        <h2 class="h6 mt-4">Commenti</h2>
+        <div class="comment-list">
+            {% for comment in post.comments.all %}
+            <form method="post" action="{% url 'posts:comment-delete' comment.pk %}" class="d-flex align-items-center gap-2 mb-1">
+                {% csrf_token %}
+                <span><strong>{{ comment.author.username }}</strong>: {{ comment.text }}</span>
+                <button type="submit" class="btn btn-sm btn-link text-danger p-0" aria-label="Elimina commento"><i class="bi bi-trash"></i></button>
+            </form>
+            {% empty %}
+            <p class="text-body-secondary">Non ci sono commenti.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% empty %}
+<p class="text-center text-body-secondary fs-5">Non hai ancora pubblicato nulla. <a href="{% url 'posts:create' %}">Carica il primo post</a>.</p>
+{% endfor %}
+{% endblock %}

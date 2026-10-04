@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{ profile.username }}{% endblock %}
+{% block content %}
+<div class="col-lg-7 mx-auto">
+    <h1 class="mb-4 text-center">
+        {{ profile.username }} {% include "partials/_verified.html" with user_obj=profile %}
+        {% if not is_own_profile %}
+        <button type="button" class="btn btn-sm align-middle js-follow {% if is_following %}btn-light{% else %}btn-primary{% endif %}" data-url="{% url 'accounts:follow' profile.username %}">
+            {% if is_following %}Segui già{% else %}Segui{% endif %}
+        </button>
+        {% endif %}
+    </h1>
+
+    <div class="row align-items-center">
+        <div class="col-sm-5 text-center mb-3">
+            <img src="{{ profile.avatar_url }}" alt="Foto profilo di {{ profile.username }}" class="rounded-circle img-thumbnail object-fit-cover shadow-lg" style="width: 200px; height: 200px;">
+        </div>
+        <div class="col-sm-7">
+            <div class="row text-center mb-3">
+                <div class="col-4"><h3>Post</h3><h3>{{ post_count }}</h3></div>
+                <div class="col-4"><h3>Follower</h3><h3 data-follower-count>{{ followers_count }}</h3></div>
+                <div class="col-4"><h3>Seguiti</h3><h3>{{ following_count }}</h3></div>
+            </div>
+            <p class="fs-5">{{ profile.display_name }}</p>
+            {% if profile.bio %}<p>{{ profile.bio }}</p>{% else %}<p class="text-body-secondary"><em>Nessuna biografia</em></p>{% endif %}
+        </div>
+    </div>
+    <hr class="my-4">
+    {% include "posts/_post_grid.html" %}
+    {% include "partials/_pagination.html" %}
+</div>
+{% endblock %}

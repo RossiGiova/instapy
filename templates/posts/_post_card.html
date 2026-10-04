@@ -1,0 +1,29 @@
+{# Expects `post` annotated with Post.objects.with_stats(). #}
+<div class="card shadow-lg border-dark post-card">
+    <div class="card-header bg-transparent border-0 pt-3">
+        <a class="text-dark text-decoration-none fs-5" href="{% url 'accounts:profile' post.author.username %}">
+            <img src="{{ post.author.avatar_url }}" alt="" height="35" width="35" class="rounded-circle object-fit-cover me-2">{{ post.author.username }}
+            {% include "partials/_verified.html" with user_obj=post.author %}
+        </a>
+    </div>
+    <img src="{{ post.image.url }}" class="border-top border-bottom border-dark" alt="Foto di {{ post.author.username }}">
+    <div class="card-body">
+        <button type="button" class="btn-like js-like" data-url="{% url 'posts:like' post.pk %}" data-post="{{ post.pk }}" aria-label="Mi piace" aria-pressed="{{ post.liked_by_me|yesno:'true,false' }}">
+            <i class="bi bi-suit-heart-fill {% if post.liked_by_me %}liked{% endif %}"></i>
+        </button>
+        <small><strong>Piace a <span data-like-count="{{ post.pk }}">{{ post.like_count }}</span> persone</strong></small>
+        {% if post.description %}<p class="mt-2 mb-0"><strong>{{ post.author.username }}</strong> {{ post.description }}</p>{% endif %}
+        <hr>
+        <div class="comment-list" data-comments="{{ post.pk }}">
+            {% for comment in post.comments.all %}
+                {% include "posts/_comment.html" %}
+            {% empty %}
+                <p class="text-center text-body-secondary js-no-comments">Nessun commento disponibile.</p>
+            {% endfor %}
+        </div>
+        <form class="input-group mt-3 js-comment-form" data-url="{% url 'posts:comment' post.pk %}" data-post="{{ post.pk }}">
+            <input type="text" name="text" class="form-control" placeholder="Commenta..." maxlength="200" required aria-label="Commento">
+            <button class="btn btn-outline-secondary" type="submit" aria-label="Invia commento"><i class="bi bi-send"></i></button>
+        </form>
+    </div>
+</div>

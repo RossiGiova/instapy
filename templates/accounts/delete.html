@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Cancella account{% endblock %}
+{% block content %}
+<div class="col-lg-5 mx-auto">
+    <h1 class="text-center mb-3">Cancella account</h1>
+    <p class="text-center">Verranno eliminati definitivamente profilo, post, like e commenti. Per confermare inserisci la tua password.</p>
+    <form method="post" class="border border-danger rounded shadow p-4">
+        {% csrf_token %}
+        {% include "partials/_form_fields.html" %}
+        <button type="submit" class="btn btn-danger">Elimina definitivamente</button>
+        <a href="{% url 'accounts:settings' %}" class="btn btn-light">Annulla</a>
+    </form>
+</div>
+{% endblock %}

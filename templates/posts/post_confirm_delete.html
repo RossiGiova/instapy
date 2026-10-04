@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Elimina post{% endblock %}
+{% block content %}
+<div class="col-lg-5 mx-auto text-center">
+    <h1 class="mb-4">Eliminare questo post?</h1>
+    <img src="{{ object.image.url }}" class="img-fluid rounded mb-3" alt="">
+    <p>L'operazione non può essere annullata: verranno eliminati anche like e commenti.</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Elimina</button>
+        <a href="{% url 'posts:manage' %}" class="btn btn-light">Annulla</a>
+    </form>
+</div>
+{% endblock %}
